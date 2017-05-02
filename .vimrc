@@ -63,13 +63,17 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 
 let mapleader="\ "
- 
+
 " NERDTree Settings
 nmap <leader>n :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore = ['tmp', '.yardoc', 'pkg']
 
 " Airline Settings
+"let g:airline_theme='molokai'
+"let g:airline_theme='term'
+"let g:airline_theme='dark'
+"let g:airline_theme='wombat'
 let g:airline_theme='powerlineish'
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -125,10 +129,10 @@ set confirm
 set expandtab
 
 " number of characters to shift with '>' or '<'
-set shiftwidth=4
+set shiftwidth=2
 
 " number of columns per tab
-set tabstop=4
+set tabstop=2
 
 " better indentions
 set smartindent
@@ -240,13 +244,6 @@ augroup gitCommitEditMsg
     \ if @% == '.git/COMMIT_EDITMSG' |
     \   exe "normal gg" |
     \ endif
-augroup END
-
-augroup autocom
-    autocmd!
-    " Hack to prevent YCM from leaving Tern/NodeJS orphans
-    autocmd VimLeave * 
-      \ YcmCompleter StopServer
 augroup END
 
 " toggle spellcheck
