@@ -1,8 +1,20 @@
 #!/usr/bin/env bash
 
-mkdir ~/dotfiles/.vim/bundle
-git clone https://github.com/gmarik/vundle.git ~/dotfiles/.vim/bundle/vundle.vim
-ln -s ~/dotfiles/.vim ~/.vim
-ln -s ~/dotfiles/.vimrc ~/.vimrc
+# rename dir to .dotfiles
+cd ..
+mv ./dotfiles ./.dotfiles
+cd ./.dotfiles
 
+# clone vundle
+mkdir .vim/bundle
+git clone https://github.com/gmarik/vundle.git ./.vim/bundle/vundle.vim
 
+# setup softlinks
+ln -s $(pwd)/.vim ~/.vim
+ln -s $(pwd)/.vimrc ~/.vimrc
+
+# install bundles
+vim +BundleInstall +qall
+
+# start vim
+vim

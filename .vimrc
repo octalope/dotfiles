@@ -88,7 +88,6 @@ Plugin 'AndrewRadev/sideways.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'SirVer/ultisnips'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'bkad/CamelCaseMotion'
 Plugin 'elzr/vim-json'
 Plugin 'honza/vim-snippets'
 Plugin 'jelera/vim-javascript-syntax'
@@ -141,16 +140,8 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 " Prevent vimjson from concealing characters
 let g:vim_json_syntax_conceal = 0
 
-" CamelCase motion
-call camelcasemotion#CreateMotionMappings('<leader>')
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-map <silent> e <Plug>CamelCaseMotion_e
-map <silent> ge <Plug>CamelCaseMotion_ge
-sunmap w
-sunmap b
-sunmap e
-sunmap ge
+" Quick Exit
+noremap <C-x> :q <enter>
 
 " Remap movement to move by column layout
 nnoremap j gj
