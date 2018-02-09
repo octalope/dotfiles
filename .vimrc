@@ -6,7 +6,7 @@
 set term=xterm                  " Assume xterm
 set t_Co=256                    " Assume 256 color xterm
 
-set spell spelllang=en_us
+" set spell spelllang=en_us
 set mouse=a                     " Enable mouse in terminal
 let &t_AB="\e[48;5;%dm"         " Enable Scroll Wheel Up
 let &t_AF="\e[38;5;%dm"         " Enable Scroll Wheel Down
@@ -150,11 +150,11 @@ nnoremap <Down> gj
 nnoremap <Up> gk
 
 " Buffers
-noremap <Leader><Tab> :buffers<CR>:buffer<Space>
+noremap <Leader>b :buffers<CR>:buffer<Space>
 nnoremap <C-H> :bp <enter>
 nnoremap <C-L> :bn <enter>
 nnoremap <Leader>w :w <enter>
-nnoremap <Leader>q :bd <enter>
+nnoremap <Leader>x :bd <enter>
 
 " Move through grep results
 map [q :cprevious<CR>
