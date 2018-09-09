@@ -1,0 +1,50 @@
+[user]
+	name = Steve Brooks
+	email = steve.c.brooks@gmail.com
+[core]
+  autocrlf = input
+  editor = 'vim'
+[commit]
+  template = .gitmessage.txt
+[diff]
+	tool = bc
+[difftool]
+  prompt = false
+[difftool "bc"]
+	trustExitCode = true
+  cmd = `bcompare $LOCAL $REMOTE`
+[merge]
+	tool = bc
+[mergetool]
+  prompt = false
+[mergetool "bc"]
+	trustExitCode = true
+  cmd = `bcompare $LOCAL $REMOTE $BASE $MERGED`
+[alias]
+  a = add
+	aacm = !git add -A . && git commit -m
+	amend = commit --amend -m
+  b = branch
+  cb = checkout -b
+  ci = commit
+	cm = commit -m
+  co = checkout
+  cob = checkout -b
+  clean = clean -fdx
+  d = diff
+  db = branch -D
+  dt = difftool -y
+  f = fetch
+  l = log --oneline --graph --decorate
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  m = merge
+  master = "!git checkout master && git pull"
+	p = push
+  po = push origin
+  pl = pull
+  plo = pull origin
+  revert = "!git fetch origin && git reset --hard origin/master"
+  s = status
+	unstage = reset --soft HEAD^
+
