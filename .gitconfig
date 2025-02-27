@@ -1,5 +1,5 @@
 [user]
-	name = Steve Brooks
+  name = Steve Brooks
   email = steve.c.brooks@gmail.com
 
 [includeIf "gitdir/i:~/src/accusoft/"]
