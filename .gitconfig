@@ -5,6 +5,12 @@
 [includeIf "gitdir/i:~/src/accusoft/"]
   path = ~/src/octalope/.gitconfig-accusoft
 
+[branch]
+  sort = -commiterdate
+
+[column]
+  ui = auto
+
 [core]
   autocrlf = input
   editor = 'vi'
@@ -56,11 +62,20 @@
   s = status
   unstage = reset --soft HEAD^V
 
+[commit]
+  verbose = true
+
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
+
+[help]
+  autocorrect = prompt
+
+[init]
+  defaultBranch = main
 
 [log]
   date = iso
@@ -69,6 +84,14 @@
   ff = only
   rebase = false
 
+[push]
+  default = simple
+  autoSetupRemote = true
+  followTags = true
+
 [safe]
   directory = /workspaces/prizmdoc-application-services
+
+[tag]
+  sort = version:refname
 
