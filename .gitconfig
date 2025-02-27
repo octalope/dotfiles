@@ -27,7 +27,7 @@
   ci = commit
   cm = commit -m
   co = checkout
-  commend = 'git commit --amend --no-edit'
+  commend = 'commit --amend --no-edit'
   deleteBranches = "!git branch | grep -v "master" | xargs git branch -D"
   d = diff
   db = branch -D
