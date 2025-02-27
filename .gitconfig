@@ -6,13 +6,15 @@
   path = ~/src/octalope/.gitconfig-accusoft
 
 [core]
-	autocrlf = input
-  editor = 'vim'
+  autocrlf = input
+  editor = 'vi'
 
 [diff]
   tool = vscode
+
 [difftool]
   prompt = false
+
 [difftool "vscode"]
   cmd = code --wait --diff $LOCAL $REMOTE
 
@@ -55,10 +57,11 @@
   unstage = reset --soft HEAD^V
 
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
 [log]
   date = iso
 [pull]
