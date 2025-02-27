@@ -12,6 +12,7 @@ git clone https://github.com/gmarik/vundle.git ./.vim/bundle/vundle.vim
 # setup softlinks
 ln -s $(pwd)/.vim ~/.vim
 ln -s $(pwd)/.vimrc ~/.vimrc
+ln -s $(pwd)/.gitconfig ~/.gitconfig
 
 # install bundles
 vim +BundleInstall +qall

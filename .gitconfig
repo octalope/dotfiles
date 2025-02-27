@@ -1,50 +1,69 @@
 [user]
 	name = Steve Brooks
-	email = steve.c.brooks@gmail.com
+  email = steve.c.brooks@gmail.com
+
+[includeIf "gitdir/i:~/src/accusoft/"]
+  path = ~/src/octalope/.gitconfig-accusoft
+
 [core]
-  autocrlf = input
+	autocrlf = input
   editor = 'vim'
-[commit]
-  template = .gitmessage.txt
+
 [diff]
-	tool = bc
+  tool = vscode
 [difftool]
   prompt = false
-[difftool "bc"]
-	trustExitCode = true
-  cmd = `bcompare $LOCAL $REMOTE`
-[merge]
-	tool = bc
-[mergetool]
-  prompt = false
-[mergetool "bc"]
-	trustExitCode = true
-  cmd = `bcompare $LOCAL $REMOTE $BASE $MERGED`
-[alias]
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+
+[alias]	
   a = add
-	aacm = !git add -A . && git commit -m
-	amend = commit --amend -m
+  aacm = !git add -A . && git commit -m
+  amend = 'commit --amend --no-edit'
   b = branch
   cb = checkout -b
   ci = commit
-	cm = commit -m
+  cm = commit -m
   co = checkout
-  cob = checkout -b
-  clean = clean -fdx
+  commend = 'git commit --amend --no-edit'
+  deleteBranches = "!git branch | grep -v "master" | xargs git branch -D"
   d = diff
   db = branch -D
   dt = difftool -y
   f = fetch
+  hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
   l = log --oneline --graph --decorate
-	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --branches
+  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
   m = merge
+  main = "!git checkout main && git pull"
   master = "!git checkout master && git pull"
-	p = push
+  mergeMain = "!git merge origin main"
+  mergeMaster = "!git merge origin master"
+  out = "log @{u}.."
+  p = push
   po = push origin
   pl = pull
   plo = pull origin
+  # Usage: push 
+  # git qp "whatever your comment is"
+  qp = "!f() { git add -u . && git commit -m \"$1\" && git push; }; f"
+  removeAll = clean -fdx
   revert = "!git fetch origin && git reset --hard origin/master"
   s = status
-	unstage = reset --soft HEAD^
+  unstage = reset --soft HEAD^V
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[log]
+  date = iso
+[pull]
+  ff = only
+	rebase = false
+[safe]
+	directory = /workspaces/prizmdoc-application-services
 
