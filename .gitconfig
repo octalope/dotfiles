@@ -64,9 +64,11 @@
 
 [log]
   date = iso
+
 [pull]
   ff = only
-	rebase = false
+  rebase = false
+
 [safe]
-	directory = /workspaces/prizmdoc-application-services
+  directory = /workspaces/prizmdoc-application-services
 
