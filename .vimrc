@@ -1,37 +1,12 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl --insecure -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+"===============================================================
+" .vimrc
+"===============================================================
 
-silent! call plug#begin('~/.vim/plugged')
-
-Plug 'junegunn/vim-plug'
-Plug 'scrooloose/nerdtree'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'jiangmiao/auto-pairs'
-Plug 'othree/yajs.vim'
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'tpope/vim-surround'
-Plug 'vim-scripts/CSApprox'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'pangloss/vim-javascript'    " JavaScript support
-Plug 'leafgarland/typescript-vim' " TypeScript syntax
-Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
-Plug 'jparise/vim-graphql'        " GraphQL syntax
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'jaredgorski/spacecamp'
-Plug 'jacoborus/tender.vim'
-Plug 'github/copilot.vim'
-
-" Initialize plugin system
-call plug#end()
-
+" General Defaults
 set term=xterm                  " Assume xterm
 set t_Co=256                    " Assume 256 color xterm
+
+" set spell spelllang=en_us
 set mouse=a                     " Enable mouse in terminal
 let &t_AB="\e[48;5;%dm"         " Enable Scroll Wheel Up
 let &t_AF="\e[38;5;%dm"         " Enable Scroll Wheel Down
@@ -50,21 +25,12 @@ set clipboard=unnamed           " Copy unnamed to clipboard by defaultd
 syntax on                       " Enable Syntax Highlighting
 set confirm                     " Confirm close / overwrite
 
-if (has("termguicolors"))
-  set termguicolors
-endif
-
-" colorscheme hybrid
-colorscheme spacecamp
-set background=dark
-hi Comment ctermfg=2
-set number
-set cursorline
+colorscheme hybrid              " Set Hybrid colorscheme
 
 " Command line completion
 set wildmenu                    " Enable autocompletion in commands
 set wildchar=<Tab>              " Set completion character to Tab
-set wildmode=list:longest,full  " Complete first full match, next match, etc.
+set wildmode=longest:full,full  " Complete first full match, next match, etc.
 
 " Text Wrapping
 set nowrap                      " Never wrap text
@@ -78,10 +44,71 @@ set smartcase                   " ... unless there are capitals in searches
 nnoremap <leader><space> :nohls <enter> " Disable highlight
 
 " Tabs
-set softtabstop=2	            " set softtabstop to 2
-set tabstop=2			        " set tapstop to 2
-set shiftwidth=2		        " set shiftwidth to 2
-"set expandtab                   " always use spaces
+set tabstop=2                   " 2 space tabstop
+set softtabstop=2               " 2 spaces for each Tab or backspace
+set shiftwidth=2                " 2 spaces when shifting selection
+set expandtab                   " Replace tabs with spaces
+set autoindent                  " Copy indent from current line on a new line
+set smartindent                 " Do indents like c
+
+" Backup, Swap and Undo
+set undofile                    " Persistent Undo
+
+" Set locations for current, backup, and undo directories
+if has("win32")
+    set directory=$HOME\vimfiles\swap,$TEMP
+    set backupdir=$HOME\vimfiles\backup,$TEMP
+    set undodir=$HOME\vimfiles\undo,$TEMP
+else
+    set directory=~/.vim/swap,/tmp
+    set backupdir=~/.vim/backup,/tmp
+    set undodir=~/.vim/undo,/tmp
+endif
+
+filetype off                    " Turn off before vundle init
+
+" When first installing, manually clone the vundle repo...
+" $ mkdir ~/.vim/bundle
+" $ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle.vim
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'   " Let Vundle manage Vundle, required
+
+" Other plugins
+Bundle 'ervandew/supertab'
+Bundle 'kien/ctrlp.vim'
+Bundle 'marijnh/tern_for_vim'
+Bundle 'matze/vim-move'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/syntastic'
+Plugin 'AndrewRadev/sideways.vim'
+Plugin 'Raimondi/delimitMate'
+Plugin 'SirVer/ultisnips'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'elzr/vim-json'
+Plugin 'honza/vim-snippets'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'pangloss/vim-javascript'
+Plugin 'scrooloose/nerdTree'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" All Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" :PluginInstall    - installs plugins; append `!` to update or just
+" :PluginUpdate
+" see :h vundle for more details or wiki for FAQ
+
+let mapleader="\ "
+
+" Path to directory where library can be found
+let g:clang_library_path='/usr/lib/llvm-3.8/lib'
 
 " NERDTree Settings
 nmap <leader>/ :NERDTreeToggle<CR>
@@ -101,6 +128,27 @@ let g:airline_left_sep = '▶'
 let g:airline_right_sep = '«'
 let g:airline_right_sep = '◀'
 
+" Better key bindings for UltiSnips ExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
+
+" Ctrl-P
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+" Prevent vimjson from concealing characters
+let g:vim_json_syntax_conceal = 0
+
+" Quick Exit
+noremap <C-x> :q <enter>
+
+" Remap movement to move by column layout
+nnoremap j gj
+nnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
+
 " Buffers
 noremap <Leader>b :buffers<CR>:buffer<Space>
 nnoremap <C-H> :bp <enter>
@@ -108,9 +156,48 @@ nnoremap <C-L> :bn <enter>
 nnoremap <Leader>w :w <enter>
 nnoremap <Leader>x :bd <enter>
 
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\}
+" Move through grep results
+map [q :cprevious<CR>
+map ]q :cnext<CR>
+map [Q :cfirst<CR>
+map ]Q :clast<CR>
+
+" vim-move mapppings
+let g:move_map_keys = 0
+vmap <C-j> <Plug>MoveBlockDown
+vmap <C-k> <Plug>MoveBlockUp
+nmap <C-j> <Plug>MoveLineDown
+nmap <C-k> <Plug>MoveLineUp
+
+" Move function params or any other
+" comma-delimited items left or right
+nnoremap <Leader>h :SidewaysLeft<cr>
+nnoremap <Leader>l :SidewaysRight<cr>
+
+" Shorten delay when leaving a mode with escape
+set timeoutlen=1000 ttimeoutlen=10
+
+" Search & replace word under cursor
+noremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+
+" Insert line(s) above/below
+nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
+nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
+
+" Folding
+set foldmethod=syntax
+
+" Unfold all by default
+autocmd BufWinEnter * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
+
+" Auto load vimrc changes
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
+
+" Turn on wrap for txt files
+au BufNewFile,BufRead *.txt set wrap
 
 " Jump to last cursor position
 augroup vimrcEx
@@ -129,9 +216,4 @@ augroup gitCommitEditMsg
     \   exe "normal gg" |
     \ endif
 augroup END
-
-" CoC extensions
-let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-git', 'coc-eslint']
-
-inoremap <expr><TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 
